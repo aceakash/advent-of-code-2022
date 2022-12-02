@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"testing"
 )
 import "github.com/stretchr/testify/assert"
 
-func TestWithRealInput(t *testing.T) {
+func TestPartOneWithRealInput(t *testing.T) {
 	filename := "./input.txt"
 	lines, err := LinesFromFile(filename)
 	if err != nil {
@@ -19,6 +20,32 @@ func TestWithRealInput(t *testing.T) {
 	cals, err := mostCalories(lines)
 	assert.NoError(t, err)
 	assert.Equal(t, 68775, cals)
+}
+
+func TestPartTwoWithRealInput(t *testing.T) {
+	filename := "./input.txt"
+	lines, err := LinesFromFile(filename)
+	if err != nil {
+		assert.Failf(t, "Could not read from file %s", filename)
+	}
+	cals, err := mostCaloriesTopThreeElves(lines)
+	assert.NoError(t, err)
+	assert.Equal(t, 68775, cals)
+}
+
+func mostCaloriesTopThreeElves(lines []string) (int, error) {
+	elves, err := parse(lines)
+	if err != nil {
+		return 0, err
+	}
+	elfCalCounts := []int{}
+	for _, elf := range elves {
+		cals := countCalories(elf)
+		elfCalCounts = append(elfCalCounts, cals)
+	}
+	sort.Ints(elfCalCounts)
+	l := len(elfCalCounts)
+	return elfCalCounts[l-1] + elfCalCounts[l-2] + elfCalCounts[l-3], nil
 }
 
 type Elf []int
