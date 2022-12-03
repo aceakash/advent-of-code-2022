@@ -4,23 +4,19 @@ def input_lines(filename):
     return lines
 
 def priority(dupe):
-    if 'a' <= dupe <= 'z':
-        return ord(dupe) - 96
-    if 'A' <= dupe <= 'Z':
-        return ord(dupe) - 38
-
+    return 
+    
 if __name__ == "__main__":
-    lines = input_lines('day3_input.txt')
-    tot = 0
+    lines, total = input_lines('day3_input.txt'), 0
     for l in lines:
         half = len(l)//2
-        compartment1 = set(l[:half])
-        compartment2 = set(l[half:])
+        compartment1, compartment2 = set(l[:half]), set(l[half:])
         dupe = list(compartment1.intersection(compartment2))[0]
-        tot += priority(dupe)
+        offset = 96 if 'a' <= dupe <= 'z' else 38
+        total += ord(dupe) - offset
 
-    print(tot)
-    # print(priority('P'), ord('P'))
+    print(total)
+
 
     
     
