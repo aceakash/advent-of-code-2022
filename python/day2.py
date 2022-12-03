@@ -1,5 +1,5 @@
 def input_lines(filename):
-    with open('day2_input.txt') as fp:
+    with open(filename) as fp:
         lines = [l.strip() for l in fp.readlines()]
     return lines
 
