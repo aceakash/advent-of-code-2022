@@ -8,4 +8,4 @@ with open("day4_input.txt") as f:
             part1 += 1
         if not (b < c or d < a):
             part2 += 1
-    print(part1, part2)
+        
